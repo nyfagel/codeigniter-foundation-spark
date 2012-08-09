@@ -4,7 +4,7 @@
  * @author	Jan Lindblom <jan@powcorp.se>
  * @copyright	Copyright (c) 2012, POW! Corp.
  * @license	MIT
- * @version	0.4
+ * @version	0.6
  */
 
 $autoload['helper'] = array('foundation');
