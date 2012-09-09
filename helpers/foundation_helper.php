@@ -5,10 +5,10 @@
  * See http://foundation.zurb.com/ for more information about Foundation.
  *
  * @package     helpers
- * @author      Jan Lindblom <jan@powcorp.se>
- * @copyright   Copyright (c) 2012, POW! Corp.
+ * @author      Jan Lindblom <jan@nyfagel.se>
+ * @copyright   Copyright (c) 2012, Ny fågel.
  * @license     MIT
- * @version     0.6
+ * @version     0.6.1
  */
 
 
@@ -21,6 +21,7 @@ if ( ! function_exists('label')) {
 	 * @param string $data content of the label.
 	 * @param string $class type of label, any combination of [round, radius] and
 	 *        [secondary, alert, success].
+     * @param string $id id of the label.
 	 * @return string a string with the generated HTML.
 	 */
 	function label($data = '', $class = '', $id = '') {
@@ -41,7 +42,7 @@ if ( ! function_exists('button_anchor')) {
 	 * @param string $uri the href of the anchor.
 	 * @param string $type type of button, any combination of [tiny, small, medium, large],
 	 *        [radius, round] and [success, alert, secondary].
-	 * @param array $attributes additional attributes of the button anchor.
+	 * @param mixed $attributes additional attributes of the button anchor.
 	 * @return string a string with the generated anchor button.
 	 */
 	function button_anchor($uri = '', $title = '', $type = '', $attributes = '') {
