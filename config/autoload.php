@@ -4,7 +4,7 @@
  * @author	Jan Lindblom <jan@nyfagel.se>
  * @copyright	Copyright (c) 2012, Ny fågel.
  * @license	MIT
- * @version	0.6.2
+ * @version	0.6.2-2
  */
 
 $autoload['helper'] = array('foundation');
