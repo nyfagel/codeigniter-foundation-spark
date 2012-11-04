@@ -1,4 +1,4 @@
-codeigniter-foundation-spark 0.6.1
+codeigniter-foundation-spark 0.6.2
 ==================================
 
 Spark to make life in CodeIgniter easier when using [ZURB Foundation](http://foundation.zurb.com/) for layout.
@@ -12,6 +12,8 @@ The Grid
 
 * columns($data: string, $class: string, $id: string): string
 * row
+* row_open
+* block_grid
 
 Buttons
 -------
