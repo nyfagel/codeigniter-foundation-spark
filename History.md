@@ -1,4 +1,9 @@
 
+0.6.2 / 2012-11-04 
+==================
+
+  * Adding and restructuring some of the grid functions.
+
 0.6.1 / 2012-09-09 
 ==================
 
