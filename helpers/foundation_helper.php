@@ -3,14 +3,124 @@
  * Foundation Helper for CodeIgniter.
  *
  * See http://foundation.zurb.com/ for more information about Foundation.
- *
+ * 
+ * See http://www.nyfagel.se for more information about Ny fågel.
+ * See https://github.com/organizations/nyfagel for more of our open-source adventures.
+ * 
  * @package     helpers
  * @author      Jan Lindblom <jan@nyfagel.se>
  * @copyright   Copyright (c) 2012, Ny fågel.
  * @license     MIT
- * @version     0.6.1
+ * @version     0.6.2
  */
 
+/**
+ * Functions for generating the grid.
+ */
+
+if ( ! function_exists('row')) {
+	/**
+	 * Create a Foundation row div element.
+	 * 
+	 * @link http://foundation.zurb.com/docs/grid.php
+	 * @access public
+	 * @param string $content the content of the row.
+	 * @param string $class any optional class of the row.
+	 * @param string $id an optional id of the row.
+	 * @return string a div element with the class row.
+	 */
+	function row($content = '', $class = '', $id = '') {
+		$class = ($class != '') ? ' '.$class : $class;
+		$id = ($id != '') ? ' id="'.$id.'"' : $id;
+		return "<div class=\"row".$class."\"".$id.">".$content."</div>";
+	}
+}
+
+if ( ! function_exists('row_open')) {
+	/**
+	 * Create a Foundation row div element, just the opening div.
+	 * 
+	 * @link http://foundation.zurb.com/docs/grid.php
+	 * @access public
+	 * @param string $class any optional class of the row.
+	 * @param string $id an optional id of the row.
+	 * @return string a div element with the class row.
+	 */
+	function row_open($class = '', $id = '') {
+		$class = ($class != '') ? ' '.$class : $class;
+		$id = ($id != '') ? ' id="'.$id.'"' : $id;
+		return "<div class=\"row".$class."\"".$id.">";
+	}
+}
+
+if ( ! function_exists('columns')) {
+	/**
+	 * Create a Foundation columns div element.
+	 * 
+	 * @link http://foundation.zurb.com/docs/grid.php
+	 * @access public
+	 * @param string $data the content of the columns element.
+	 * @param int $number the number of columns, any number [1-12], defaults to 12.
+	 * @param string $class any optional classes of the columns div.
+	 * @param int $mobile an optional mobile columns setting, any number [1-4].
+	 * @return string the columns div html.
+	 */
+	function columns($data = '', $number = 12, $class = '', $mobile = null) {
+		$class = ($class != '') ? $class.' ' : $class;
+		$number = _number_to_text($number).' ';
+		$mobile = ($mobile != null) ? 'mobile-'._number_to_text($mobile).' ' : $mobile;
+		return "<div class=\"".$class.$number.$mobile."columns\">".$data."</div>";
+	}
+}
+
+if ( ! function_exists('column')) {
+	/**
+	 * Synonymous with the columns function.
+	 * 
+	 * @link http://foundation.zurb.com/docs/grid.php
+	 * @access public
+	 * @param string $data the content of the columns element.
+	 * @param int $number the number of columns, any number [1-12], defaults to 12.
+	 * @param string $class any optional classes of the columns div.
+	 * @param int $mobile an optional mobile columns setting, any number [1-4].
+	 * @return string the columns div html.
+	 */
+	function column($data = '', $number = 12, $class = '', $mobile = null) {
+		if (function_exists('columns')) {
+			return columns($data, $number, $class, $mobile);
+		}
+	}
+}
+
+if ( ! function_exists('block_grid')) {
+	/**
+	 * Create a Foundation block grid.
+	 * 
+	 * @link http://foundation.zurb.com/docs/grid.php
+	 * @access public
+	 * @param array $blocks the content of the blocks (default: array()).
+	 * @param int $up the number of blocks of this block grid to display
+	 *        horizontally (default: 2).
+	 * @param mixed $mobile_up the optional number of blocks to display per row
+	          on mobile devices (default: null).
+	 * @param string $grid_class an optional class of the grid (default: '').
+	 * @param string $block_class an optional class of the blocks (default: '').
+	 * @return string the HTML code with the block grid.
+	 */
+	function block_grid($blocks = array(), $up = 2, $mobile_up = null, $grid_class = '', $block_class = '') {
+		$up = _number_to_text($up).'-up';
+		$mobile_up = (!is_null($mobile_up)) ? ' mobile-'._number_to_text($mobile_up).'-up' : '';
+		$grid_class = ($grid_class != '') ? ' '.$grid_class : $grid_class;
+		$block_class = ($block_class != '') ? ' class="'.$block_class.'"' : $block_class;
+		$result = '';
+		$result .= '<ul class="block-grid '.$up.$mobile_up.$grid_class.'"'.'>';
+		foreach ($blocks as $block) {
+			$result .= '<li'.$block_class.'>'.$block.'</li>';
+		}
+		$result .= '</ul>';
+		return $result;
+	}
+}
 
 if ( ! function_exists('label')) {
 	/**
@@ -136,42 +246,6 @@ if ( ! function_exists('tooltip')) {
 	}
 }
 
-if ( ! function_exists('row')) {
-	/**
-	 * Create a Foundation row div element.
-	 * 
-	 * @link http://foundation.zurb.com/docs/grid.php
-	 * @access public
-	 * @param string $content the content of the row.
-	 * @param string $class any option class content of the row.
-	 * @return string a div element with the class row.
-	 */
-	function row($content = '', $class = '') {
-		$class = ($class != '') ? ' '.$class : $class;
-		return "<div class=\"row".$class."\">".$content."</div>";
-	}
-}
-
-if ( ! function_exists('columns')) {
-	/**
-	 * Create a Foundation columns div element.
-	 * 
-	 * @link http://foundation.zurb.com/docs/grid.php
-	 * @access public
-	 * @param string $data the content of the columns element.
-	 * @param int $number the number of columns, any number [1-12], defaults to 12.
-	 * @param string $class any optional classes of the columns div.
-	 * @param int $mobile an optional mobile columns setting, any number [1-4].
-	 * @return string the columns div html.
-	 */
-	function columns($data = '', $number = 12, $class = '', $mobile = null) {
-		$class = ($class != '') ? $class.' ' : $class;
-		$number = _number_to_text($number).' ';
-		$mobile = ($mobile != null) ? 'mobile-'._number_to_text($mobile).' ' : $mobile;
-		return "<div class=\"".$class.$number.$mobile."columns\">".$data."</div>";
-	}
-}
-
 if ( ! function_exists('accordion')) {
 	/**
 	 * Create a Foundation accordion element.
@@ -234,7 +308,7 @@ if ( ! function_exists('reveal_modal')) {
 	 * @param string $class any additional class.
 	 * @return string the reveal modal div element.
 	 */
-	function reveal_modal($content = '', $id = '', $class = '',$append_close_anchor = true) {
+	function reveal_modal($content = '', $id = '', $class = '', $append_close_anchor = true) {
 		$class = ($class != '') ? $class.' ' : $class;
 		$close_anchor = ($append_close_anchor) ? close_reveal_modal() : '';
 		return "<div id=\"".$id."\" class=\"".$class." reveal-modal\">".$content.$close_anchor."</div>";
@@ -343,12 +417,19 @@ if ( ! function_exists('pill_tabs')) {
 	 *        be a list of entries on the following form:
 	 *        'id' => array('title' => 'title', 'content' => 'content').
 	 * @param string $active a string with the id of the tab to set as active.
+	 * @param string $id_prefix an optional prefix to the id of the elements
+	 *        containing the tabs and their content.
 	 * @return array an array with the generated pill tabs on the following form:
 	 *         'tabs' => '<the pill tabs>', 'content' => '<the tab contents>'.
 	 */
-	function pill_tabs($content = array(), $active = '') {
-		$tabs = '<dl class="tabs pill">';
-		$tabscontent = '<ul class="tabs-content">';
+	function pill_tabs($content = array(), $active = '', $id_prefix = null) {
+		if (is_null($id_prefix)) {
+			$tabs = '<dl class="tabs pill">';
+			$tabscontent = '<ul class="tabs-content">';
+		} else {
+			$tabs = '<dl class="tabs pill" id="'.$id_prefix.'-tabs">';
+			$tabscontent = '<ul class="tabs-content" id="'.$id_prefix.'-content">';
+		}
 		foreach ($content as $id => $contents) {
 			$tabs .= "<dd";
 			$tabscontent .= '<li';
